@@ -7,7 +7,7 @@ import redis
 from BeautifulSoup import BeautifulSoup
 from twython import Twython
 
-r = redis.StrictRedis(host='localhost', port=6379, db=15)
+r = redis.StrictRedis(host=REDIS_HOST, port=REDIS_PORT, db=REDIS_DB)
 today = datetime.datetime.now()
 
 # Scrape WoL for updates
