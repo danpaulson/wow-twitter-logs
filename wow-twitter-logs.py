@@ -16,15 +16,13 @@ response = urllib2.urlopen(url)
 soup = BeautifulSoup(response.read())
 
 # Find the latest populated cell, roll over to yesterday if today is empty
-#cell = soup.find(text=today.strftime("%d-%m")).findNext('div').findAll('a')
-cell = soup.find(text='08-07').findNext('div').findAll('a')
+cell = soup.find(text=today.strftime("%d-%m")).findNext('div').findAll('a')
 
 if len(cell) == 0:  
     today = today - datetime.timedelta(1)
     cell = soup.find(text=today.strftime("%d-%m")).findNext('div').findAll('a')
 
-day = '08-07'
-#day = today.strftime("%d-%m")
+day = today.strftime("%d-%m")
 
 # Get that night's log page
 url = 'http://worldoflogs.com%s' % cell[0].get('href')
