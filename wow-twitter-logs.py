@@ -16,20 +16,20 @@ url = 'http://worldoflogs.com/guilds/%s/' % WOL_GUILD_ID
 response = urllib2.urlopen(url)
 soup = BeautifulSoup(response.read())
 
-# Find the latest populated cell, roll over to yesterday if today is empty
-cell = soup.find(text=today.strftime("%d-%m")).findNext('div').findAll('a')
+# Find the latest populated cell (logs), roll over to yesterday if today empty
+logs = soup.find(text=today.strftime("%d-%m")).findNext('div').findAll('a')
 
-if len(cell) == 0:  
+if len(logs) == 0:  
     today = today - datetime.timedelta(1)
-    cell = soup.find(text=today.strftime("%d-%m")).findNext('div').findAll('a')
+    logs = soup.find(text=today.strftime("%d-%m")).findNext('div').findAll('a')
 
-    if len(cell) == 0:
+    if len(logs) == 0:
         sys.exit('There are no logs yet today.')
 
 day = today.strftime("%d-%m")
 
 # Get that night's log page
-url = 'http://worldoflogs.com%s' % cell[0].get('href')
+url = 'http://worldoflogs.com%s' % logs[0].get('href')
 response = urllib2.urlopen(url)
 soup = BeautifulSoup(response.read())
 
