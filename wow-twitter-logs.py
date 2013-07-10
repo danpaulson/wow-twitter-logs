@@ -54,4 +54,4 @@ for ranking in ranked:
     
     added = r.sadd('%s_ranked' % day, '%s_%s' % (boss, link.string))
     if added:
-        twitter.update_status('[Rank] %s on %s by %s (%s)' % (rank[0], boss, link.string, dps))
+        twitter.update_status(status='[Rank] %s on %s by %s (%s)' % (rank[0], boss, link.string, dps))
