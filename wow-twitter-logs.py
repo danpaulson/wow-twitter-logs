@@ -3,6 +3,7 @@ from local_settings import *
 import urllib2
 import datetime
 import redis
+import sys
 
 from BeautifulSoup import BeautifulSoup
 from twython import Twython
@@ -21,6 +22,9 @@ cell = soup.find(text=today.strftime("%d-%m")).findNext('div').findAll('a')
 if len(cell) == 0:  
     today = today - datetime.timedelta(1)
     cell = soup.find(text=today.strftime("%d-%m")).findNext('div').findAll('a')
+
+    if len(cell) == 0:
+        sys.exit('There are no logs yet today.')
 
 day = today.strftime("%d-%m")
 
