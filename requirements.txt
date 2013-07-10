@@ -1,0 +1,4 @@
+BeautifulSoup
+feedparser
+twython
+redis
