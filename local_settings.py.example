@@ -1,3 +1,6 @@
+# Settings
+VERBOSE = True
+
 # World of Logs Guild
 WOL_GUILD_ID = ''
 

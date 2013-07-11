@@ -11,6 +11,7 @@ from twython import Twython
 
 r = redis.StrictRedis(host=REDIS_HOST, port=REDIS_PORT, db=REDIS_DB)
 parser = HTMLParser.HTMLParser()
+twitter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
 
 today = datetime.datetime.now()
 
@@ -39,8 +40,6 @@ soup = BeautifulSoup(response.read())
 attempts = soup.find(text='Bosses').findNext('ul').findAll('a')
 ranked = soup.find('table', {'class': 'playerRankMixed'}).findAll('tr')
 
-twitter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
-
 # Check for new logs, tweet
 for attempt in attempts:
     if 'bosses' not in attempt['href']:
@@ -48,12 +47,15 @@ for attempt in attempts:
         attempt_type = 'Wipe' if 'Try' in attempt.string else 'Kill'
 
         if added:
-            twitter.update_status(
-                status='#%s %s - http://www.worldoflogs.com%s' % (
+            status = '#%s %s - http://www.worldoflogs.com%s' % (
                     attempt_type,
                     parser.unescape(attempt.string),
                     attempt['href'])
-            )
+
+            twitter.update_status(status=status)
+
+            if VERBOSE:
+                print 'Tweeted: %s' % status
 
 # Remove the header
 ranked.pop(0)
@@ -66,4 +68,7 @@ for ranking in ranked:
 
     added = r.sadd('%s_ranked' % day, '%s_%s' % (boss, link.string))
     if added:
-        twitter.update_status(status='#Rank %s on %s by %s (%s)' % (rank[0], boss, link.string, dps))
+        status = '#Rank %s on %s by %s (%s)' % (rank[0], boss, link.string, dps)
+        twitter.update_status(status=status)
+        if VERBOSE:
+            print 'Tweeted: %s' % status
