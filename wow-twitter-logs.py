@@ -41,7 +41,7 @@ twitter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
 # Check for new logs, tweet
 for attempt in attempts:
     if 'bosses' not in attempt['href']:
-        added = r.sadd(day, attempt.string)
+        added = r.sadd(day, attempt.string[:-8])
         attempt_type = 'Wipe' if 'Try' in attempt.string else 'Kill'
 
         if added:
