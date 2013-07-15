@@ -32,12 +32,12 @@ if len(logs) == 0:
 
 day = today.strftime("%d-%m")
 
-# Get that night's log page
-response = urllib2.urlopen(url)
-soup = BeautifulSoup(response.read())
-
+# Get that night's log page(s)
 for log in logs:
     url = 'http://worldoflogs.com%s' % log.get('href')
+
+    response = urllib2.urlopen(url)
+    soup = BeautifulSoup(response.read())
 
     attempts = soup.find(text='Bosses').findNext('ul').findAll('a')
     ranked = soup.find('table', {'class': 'playerRankMixed'}).findAll('tr')
