@@ -37,7 +37,7 @@ response = urllib2.urlopen(url)
 soup = BeautifulSoup(response.read())
 
 for log in logs:
-    url = 'http://worldoflogs.com%s' % log[0].get('href')
+    url = 'http://worldoflogs.com%s' % log.get('href')
 
     attempts = soup.find(text='Bosses').findNext('ul').findAll('a')
     ranked = soup.find('table', {'class': 'playerRankMixed'}).findAll('tr')
