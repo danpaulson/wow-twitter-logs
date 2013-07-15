@@ -1,4 +1,4 @@
-from local_settings import *
+ from local_settings import *
 
 import urllib2
 import datetime
@@ -37,7 +37,7 @@ response = urllib2.urlopen(url)
 soup = BeautifulSoup(response.read())
 
 for log in logs:
-    url = 'http://worldoflogs.com%s' % logs[0].get('href')
+    url = 'http://worldoflogs.com%s' % log[0].get('href')
 
     attempts = soup.find(text='Bosses').findNext('ul').findAll('a')
     ranked = soup.find('table', {'class': 'playerRankMixed'}).findAll('tr')
