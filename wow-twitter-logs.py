@@ -1,4 +1,4 @@
- from local_settings import *
+from local_settings import *
 
 import urllib2
 import datetime
