@@ -40,7 +40,6 @@ for log in logs:
     soup = BeautifulSoup(response.read())
 
     attempts = soup.find(text='Bosses').findNext('ul').findAll('a')
-    ranked = soup.find('table', {'class': 'playerRankMixed'}).findAll('tr')
 
     # Check for new logs, tweet
     for attempt in attempts:
@@ -59,18 +58,24 @@ for log in logs:
                 if VERBOSE:
                     print 'Tweeted: %s' % status
 
-    # Remove the header
-    ranked.pop(0)
+    # Check for Rankings
+    ranked_table = soup.find('table', {'class': 'playerRankMixed'})
 
-    for ranking in ranked:
-        boss = ranking.findAll('td')[2].contents[0]
-        dps = ranking.findAll('td')[5].contents[0]
-        rank = ranking.find('span').contents
-        link = ranking.find('a')
+    if ranked_table:
+        ranked = ranked_table.findAll('tr')
 
-        added = r.sadd('%s_ranked' % day, '%s_%s' % (boss, link.string))
-        if added:
-            status = '#Rank %s on %s by %s (%s)' % (rank[0], boss, link.string, dps)
-            twitter.update_status(status=status)
-            if VERBOSE:
-                print 'Tweeted: %s' % status
+        # Remove the header
+        ranked.pop(0)
+
+        for ranking in ranked:
+            boss = ranking.findAll('td')[2].contents[0]
+            dps = ranking.findAll('td')[5].contents[0]
+            rank = ranking.find('span').contents
+            link = ranking.find('a')
+
+            added = r.sadd('%s_ranked' % day, '%s_%s' % (boss, link.string))
+            if added:
+                status = '#Rank %s on %s by %s (%s)' % (rank[0], boss, link.string, dps)
+                twitter.update_status(status=status)
+                if VERBOSE:
+                    print 'Tweeted: %s' % status
