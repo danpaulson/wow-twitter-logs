@@ -46,11 +46,14 @@ for log in logs:
         if 'bosses' not in attempt['href']:
             added = r.sadd(day, attempt.string[:-8])
             attempt_type = 'Wipe' if 'Try' in attempt.string else 'Kill'
+            description = parser.unescape(attempt.string)
+            raid_format_check = RAID_FORMAT in description
+            boss_check = True in [boss in description for boss in TRACKED_BOSSES]
 
-            if added:
+            if added and raid_format_check and boss_check:
                 status = '#%s %s - http://www.worldoflogs.com%s' % (
                         attempt_type,
-                        parser.unescape(attempt.string),
+                        description,
                         attempt['href'])
 
                 twitter.update_status(status=status)
