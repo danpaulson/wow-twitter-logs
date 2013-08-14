@@ -14,3 +14,22 @@ OAUTH_TOKEN_SECRET = ''
 REDIS_HOST = ''
 REDIS_PORT = 6379
 REDIS_DB = 1
+
+# Specific format / boss tracking - will add multiple format tracking if requested
+RAID_FORMAT = '10H'
+
+TRACKED_BOSSES = [
+    'Jin\'rokh the Breaker',
+    'Horridon',
+    'Council of Elders',
+    'Tortos',
+    'Megaera',
+    'Ji-Kun',
+    'Durumu the Forgotten',
+    'Primordius',
+    'Dark Animus',
+    'Iron Qon',
+    'Twin Consorts',
+    'Lei Shen',
+    'Ra-Den',
+]
