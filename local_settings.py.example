@@ -1,5 +1,6 @@
 # Settings
 VERBOSE = True
+DEBUG = True
 
 # World of Logs Guild
 WOL_GUILD_ID = ''
@@ -18,18 +19,35 @@ REDIS_DB = 1
 # Specific format / boss tracking - will add multiple format tracking if requested
 RAID_FORMAT = '10H'
 
-TRACKED_BOSSES = [
-    'Jin\'rokh the Breaker',
-    'Horridon',
-    'Council of Elders',
-    'Tortos',
-    'Megaera',
-    'Ji-Kun',
-    'Durumu the Forgotten',
-    'Primordius',
-    'Dark Animus',
-    'Iron Qon',
-    'Twin Consorts',
-    'Lei Shen',
-    'Ra-Den',
-]
+TRACKED_BOSSES = {
+    'Immerseus': 91588768,
+    'The Fallen Protectors': 0,
+    'Norushen': 702180544,
+    'Sha of Pride': 660852224,
+    'Galakras': 0,
+    'Iron Juggernaut': 592274048,
+    'Kor\'kron Dark Shaman': 654205504,
+    'General Nazgrim': 523364416,
+    'Malkorok': 629999872,
+    'Spoils of Pandaria': 0,
+    'Thok the Bloodthirsty': 654205504,
+    'Paragons of the Klaxxi': 0,
+    'Garrosh Hellscream': 0
+}
+
+# ToT
+#TRACKED_BOSSES = [
+#    'Jin\'rokh the Breaker',
+#    'Horridon',
+#    'Council of Elders',
+#    'Tortos',
+#    'Megaera',
+#    'Ji-Kun',
+#    'Durumu the Forgotten',
+#    'Primordius',
+#    'Dark Animus',
+#    'Iron Qon',
+#    'Twin Consorts',
+#    'Lei Shen',
+#    'Ra-Den',
+#]
